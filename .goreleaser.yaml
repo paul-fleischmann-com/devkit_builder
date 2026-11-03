@@ -1,0 +1,6 @@
+version: 2
+builds:
+- main: ./cmd/devkit
+  binary: devkit
+  goos: [linux,darwin]
+  goarch: [amd64,arm64]
