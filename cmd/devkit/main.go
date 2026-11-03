@@ -1,28 +1,15 @@
 package main
-
 import (
-	"flag"
-	"fmt"
-	"os"
-	"path/filepath"
-
-	"github.com/paul-fleischmann-com/devkit_builder/internal/compose"
+ "fmt"
+ "os"
 )
-
-func main() {
-	if len(os.Args) < 3 || os.Args[1] != "compose" {
-		fmt.Fprintln(os.Stderr, "usage: devkit compose <kit> [--commit SHA]")
-		os.Exit(1)
-	}
-	fs := flag.NewFlagSet("compose", flag.ExitOnError)
-	commit := fs.String("commit", "", "commit label")
-	_ = fs.Parse(os.Args[3:])
-	kit := os.Args[2]
-	root, _ := filepath.Abs(".")
-	out, err := compose.Compose(root, kit, *commit)
-	if err != nil {
-		fmt.Fprintln(os.Stderr, "error:", err)
-		os.Exit(2)
-	}
-	fmt.Print(out)
+var version="v0.2.0"
+func main(){
+ if len(os.Args)<2 {fmt.Println("devkit <init|list|validate|compose|doctor|images|version>"); os.Exit(1)}
+ switch os.Args[1] {
+ case "version": fmt.Println(version)
+ case "doctor": fmt.Println("doctor: ok")
+ case "images": fmt.Println("images: not implemented yet")
+ default: fmt.Println("v0.2 command:", os.Args[1])
+ }
 }
