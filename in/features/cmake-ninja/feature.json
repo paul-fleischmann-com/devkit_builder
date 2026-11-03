@@ -1,0 +1,5 @@
+{
+  "id": "cmake-ninja",
+  "description": "CMake (with CTest) and Ninja",
+  "options": {}
+}

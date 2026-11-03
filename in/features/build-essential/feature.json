@@ -1,0 +1,5 @@
+{
+  "id": "build-essential",
+  "description": "gcc, g++, make and pkg-config",
+  "options": {}
+}

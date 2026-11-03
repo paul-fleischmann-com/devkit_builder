@@ -1,0 +1,5 @@
+{
+  "id": "cppcheck",
+  "description": "cppcheck, for the MISRA check and static analysis (#390)",
+  "options": {}
+}

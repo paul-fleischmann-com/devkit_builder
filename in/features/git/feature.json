@@ -1,0 +1,5 @@
+{
+  "id": "git",
+  "description": "Git, for git archive / git apply of the test setup of the factory",
+  "options": {}
+}

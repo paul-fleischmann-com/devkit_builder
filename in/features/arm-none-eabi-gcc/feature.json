@@ -1,0 +1,5 @@
+{
+  "id": "arm-none-eabi-gcc",
+  "description": "Cross compiler for ARM Cortex-M (bare metal, newlib)",
+  "options": {}
+}
