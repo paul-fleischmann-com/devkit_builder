@@ -1,8 +1,42 @@
 version: 2
+
+project_name: devkit
+
+before:
+  hooks:
+    - go mod tidy
+
 builds:
-- main: ./cmd/devkit
-  binary: devkit
-  goos: [linux,darwin]
-  goarch: [amd64,arm64]
+  - id: devkit
+    main: ./cmd/devkit
+    binary: devkit
+
+    goos:
+      - linux
+      - darwin
+
+    goarch:
+      - amd64
+      - arm64
+
 archives:
-- formats: [tar.gz]
+  - id: binaries
+    formats:
+      - tar.gz
+
+    name_template: >-
+      {{ .ProjectName }}-
+      {{ .Version }}-
+      {{ .Os }}-
+      {{ .Arch }}
+
+checksum:
+  name_template: checksums.txt
+
+changelog:
+  use: git
+
+release:
+  github:
+    owner: paul-fleischmann-com
+    name: devkit_builder
