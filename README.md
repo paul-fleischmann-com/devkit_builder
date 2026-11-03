@@ -1,2 +1,2 @@
-# devkit_builder
-Go CLI for building and validating DevKit repositories.
+# devkit_builder v2
+Commands: build, compose, init, validate, doctor.
