@@ -31,19 +31,24 @@ func Run(args []string, stdout, stderr io.Writer) int {
 		fmt.Fprintln(stderr, "error:", err)
 		return 1
 	}
+	report(stdout, listing, cfg.ImagePrefix)
+	return 0
+}
+
+// report prints the devkit images of a `podman images` listing (repository|tag|id|created|size per line).
+func report(stdout io.Writer, listing, prefix string) {
 	found := false
 	for _, line := range strings.Split(listing, "\n") {
 		f := strings.SplitN(line, "|", 5)
-		if len(f) != 5 || !strings.HasPrefix(f[0], cfg.ImagePrefix) {
+		if len(f) != 5 || !strings.HasPrefix(f[0], prefix) {
 			continue
 		}
 		found = true
-		kit := strings.TrimPrefix(f[0], cfg.ImagePrefix)
+		kit := strings.TrimPrefix(f[0], prefix)
 		fmt.Fprintf(stdout, "kit=%s commit=%s created=%s size=%s\n", kit, f[1], f[3], f[4])
 		fmt.Fprintf(stdout, "  FACTORY_TEST_PROFILES entry: %s=%s\n", kit, strings.TrimPrefix(f[2], "sha256:"))
 	}
 	if !found {
 		fmt.Fprintln(stdout, "no devkit image yet: build one with  devkit build <kit>")
 	}
-	return 0
 }

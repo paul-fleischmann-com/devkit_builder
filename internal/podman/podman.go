@@ -14,6 +14,9 @@ import (
 type Worker struct {
 	Name   string
 	TmpDir string // TMPDIR for the commands; empty: not set
+
+	// Exec, if set, replaces the sudo call in Output (for tests).
+	Exec func(ctx context.Context, args ...string) (string, error)
 }
 
 // Command prepares args to run as the worker (in /). The worker is looked up here, not earlier,
@@ -36,6 +39,9 @@ func (w Worker) Command(ctx context.Context, args ...string) (*exec.Cmd, error) 
 
 // Output runs args as the worker and returns stdout; stderr goes into the error.
 func (w Worker) Output(ctx context.Context, args ...string) (string, error) {
+	if w.Exec != nil {
+		return w.Exec(ctx, args...)
+	}
 	cmd, err := w.Command(ctx, args...)
 	if err != nil {
 		return "", err
